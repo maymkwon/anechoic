@@ -16,15 +16,20 @@ class App extends Component {
   }
   render() {
     const { counter, list } = this.props
-    const data = counter.toJS()
-    console.log(list)
+    const listarr = list.toJS()
+    console.log(listarr)
     return (
       <div className="App">
         <button onClick={this.handleTest}>click</button>
         <button onClick={this.handleTestremove}>click</button>
         <button onClick={this.handleTest}>click</button>
         <button onClick={this.handleTestgetList}>click</button>
-        
+        {listarr.title}
+        {/* {
+          !list.isEmpty() && listarr.map((data, index) => {
+            return <p key={index}>{data.title}</p>
+          })
+        } */}
       </div>
     );
   }
@@ -33,7 +38,7 @@ class App extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     counter: state.ActionTest.get('counter'),
-    list: state.ActionTest.get('list').toJS()
+    list: state.ActionTest.get('list')
   }
 }
 

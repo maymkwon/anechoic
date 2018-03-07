@@ -1,8 +1,9 @@
 import {createAction, handleActions} from 'redux-actions'
 import {Map, List, fromJS} from 'immutable'
 import axios from 'axios'
+import APICaller from '../APICaller'
 //inital
-const url = 'https://jsonplaceholder.typicode.com/posts' 
+// const url = '' 
 
 const caller = (params) => {
   
@@ -16,7 +17,7 @@ const initialState = Map({
       number: 0
     })
   ]),
-  list: List([])
+  list: fromJS([])
 })
 
 //type 
@@ -26,6 +27,7 @@ const REMOVE = 'test/REMOVE';
 const READ = 'test/READ';
 const UPDATE = 'test/UPDATE';
 const GET_LIST = 'test/GET_LIST';
+const GET_LIST_ENDED = 'test/GET_LIST_ENDED';
 
 
 //action
@@ -33,7 +35,6 @@ function createAsyncAction(type, fn) {
   return (...args) => async(dispatch) => {
     dispatch({
       type: `${type}_STARTED`,
-      payload: args
     });
     let result;
     try {
@@ -48,7 +49,7 @@ function createAsyncAction(type, fn) {
     }
     dispatch({
       type: `${type}_ENDED`,
-      payload: result
+      payload: result.data
     });
     return result;
   }
@@ -61,10 +62,7 @@ export const update = createAction(UPDATE);
 export const getList = createAction(GET_LIST, (update) => caller(update));
 export const get = createAsyncAction(
   GET_LIST,
-  (update) => axios(url).then((res) => {
-    // console.log(res)
-    return res.data
-  }) 
+  (params) => APICaller.get('1')
 );
 
 
@@ -84,8 +82,8 @@ export default handleActions({
   [REMOVE]: (state, action) => state,
   [READ]: (state, action) => state,
   [UPDATE]: (state, action) => state,
-  [GET_LIST]: (state, action) => {
+  [GET_LIST_ENDED]: (state, action) => {
     console.log(action)
-    return state.set('list', List(action.payload))
+    return state.set('list', fromJS(action.payload))
   },
 }, initialState)
