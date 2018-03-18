@@ -4,7 +4,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux'
 import ConfigStore from './moduls/ConfigStore'
-
+import 'bootstrap/dist/css/bootstrap.css';
+import './style.css';
 
 const store = ConfigStore()
 
