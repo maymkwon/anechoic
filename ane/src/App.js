@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as actions from './moduls/ActionTest';
 import {connect} from 'react-redux'
-import Test from './Test'
+import Example from './Scene'
 // import { toJS } from 'immutable'
 class App extends Component {
 
@@ -30,6 +30,8 @@ class App extends Component {
             return <p key={index}>{data.title}</p>
           })
         } */}
+
+        <Example/>
       </div>
     );
   }
